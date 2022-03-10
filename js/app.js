@@ -1,24 +1,29 @@
 let posts=[ ];
 
-const likedPostsId = [];
+let likedPostsId =[];
 const reportedPostsId = [];
 
 const getLikedPosts = () => {
-    return posts.filter((post) => likedPostsId.includes(post.id));
+  return posts.filter((post) => likedPostsId.includes(post.id));
+  
 };
 
 const getReportedPosts = () => {
+  
     return posts.filter((post) => reportedPostsId.includes(post.id));
 };
 
 const isLiked = (id) => {
+  console.log(likedPostsId.length);
+  console.log(!likedPostsId.includes(id));
     return likedPostsId?.length && !!likedPostsId.includes(id);
 };
 
 const addToLiked = (id) => {
-  console.log(id);
-    likedPostsId.id; 
-    showPosts(posts);
+  console.log(likedPostsId);
+  likedPostsId.push(id); 
+  showPosts(posts);
+  
 };
 
 const reportPost = (id) => {
@@ -32,17 +37,20 @@ const displayContent = (text) => {
 };
 
 const switchTab = (id) => {
-    if (id === "posts") {
+  
+  if (id === "posts") {
         document.getElementById( "posts" ).style.display = "grid";
         document.getElementById( "liked" ).style.display = "none";
         document.getElementById( "reported" ).style.display = "none";
-    } else if (id === "liked") {
+  } else if (id === "liked") {
+
         document.getElementById( "liked" ).style.display = "block";
         document.getElementById( "posts" ).style.display = "none";
         document.getElementById( "reported" ).style.display = "none";
 
         displayLikedPosts();
-    } else {
+  } else {
+
         document.getElementById( "reported" ).style.display = "block";
         document.getElementById( "posts" ).style.display = "none";
         document.getElementById( "liked" ).style.display = "none";
@@ -52,7 +60,8 @@ const switchTab = (id) => {
 };
 
 const createPost = (post) => {
-    const image = post.image;
+  const image = post.image;
+  // console.log(post);
     const div = document.createElement( "article" );
     div.classList.add( "post" );
     div.innerHTML = `
@@ -87,7 +96,6 @@ const createPost = (post) => {
                 <div class="post__buttons">
                   <button class="post__button" onclick="addToLiked(${post.id})">
                   <i class="fa-solid fa-heart ${isLiked(post.id) && "text-danger"}"></i>
-                    
                   </button>
                   <button class="post__button">
                     <i class="fa-solid fa-comment"></i>
@@ -96,9 +104,7 @@ const createPost = (post) => {
 
                   <div class="post__indicators"></div>
 
-                  <button class="post__button post__button--align-right" onclick="reportPost(${
-                      post.id
-                  })">
+                  <button class="post__button post__button--align-right" onclick="reportPost(${post.id})">
                     <i class="fa-solid fa-ban"></i>
                   </button>
                 </div>
@@ -152,7 +158,7 @@ const displayLikedPosts = () => {
     });
 };
 
-const displayReportedPosts = () => {
+const displayReportedPosts = (posts) => {
     const reportedPosts = getReportedPosts();
     posts.forEach((post) => {
         const div = createPost(post);
