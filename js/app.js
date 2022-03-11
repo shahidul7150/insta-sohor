@@ -38,20 +38,23 @@ const switchTab = (id) => {
   
   if (id === "posts") {
         document.getElementById("accordion").style.display="block"
-        document.getElementById("liked").innerHTML = "";
+    document.getElementById("liked").innerHTML = "";
+    document.getElementById( "reported" ).innerHTML=""
         document.getElementById( "posts" ).style.display = "grid";
         document.getElementById( "liked" ).style.display = "none";
         document.getElementById( "reported" ).style.display = "none";
   } else if (id === "liked") {
     document.getElementById("accordion").style.display="none"
-        document.getElementById("liked").innerHTML = "";
+    document.getElementById("liked").innerHTML = "";
+    document.getElementById( "reported" ).innerHTML=""
         document.getElementById( "liked" ).style.display = "block";
         document.getElementById( "posts" ).style.display = "none";
         document.getElementById( "reported" ).style.display = "none";
 
         displayLikedPosts();
   } else {
-
+    document.getElementById("accordion").style.display = "none"
+    document.getElementById( "reported" ).innerHTML=""
         document.getElementById( "reported" ).style.display = "block";
         document.getElementById( "posts" ).style.display = "none";
         document.getElementById( "liked" ).style.display = "none";
@@ -162,8 +165,9 @@ const displayLikedPosts = () => {
 };
 
 const displayReportedPosts = (posts) => {
-    const reportedPosts = getReportedPosts();
-    posts.forEach((post) => {
+  const reportedPosts = getReportedPosts();
+  console.log(reportedPosts);
+  reportedPosts.forEach((post) => {
         const div = createPost(post);
         document.getElementById( "reported" ).appendChild(div);
     });
